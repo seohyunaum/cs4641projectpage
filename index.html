@@ -1,0 +1,105 @@
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <link rel = "icon" type = "image/png" href = "favicon.png">
+</head>
+<body>
+    <!-- name -->
+    <div>
+        <h1 class = "h1"><b>CS 4641 Project</b></h1>
+    </div>
+    <div class="menu">
+        <h2 class = "h2">Team Members: </h2>
+        <div><a class = "profilePages" href="http://seohyunaum.com">Seo Hyun Aum,</a></div>
+        <h2 class = "h2"><a>Abdulrahman I Tabbaa,</a></h2>
+        <h2 class = "h2"><a>Hassan Yusuf Sheikh</a></h2>
+    </div>
+    <!-- pages -->
+    <div class="menu">
+        <div class="pages" onclick="myFunction('proposal')">Proposal</div>
+        <div>•</div>
+        <div class="pages">Midterm Report</div>
+        <div>•</div>
+        <div class="pages">Final Report</div>
+    </div>
+    <!-- placeholder -->
+    <p id = "placeholder" style="text-align:center;"><img src="catgif.gif"></img></p>
+    <!-- content in pages -->
+    <div id="proposal" class="content">
+        <div style="margin: 25px; font-size: 20px; text-align: center;">
+            <b>Title of Proposal</b>
+        </div>
+        <div style="margin: 10px;">
+            <p style="font-size: 20px;">Introduction/Background</p>
+            <p>Cybersecurity is a big issue nowadays and we need a way to protect ourselves.</p>
+        </div>
+        <div style="margin: 10px;">
+            <p style="font-size: 20px;">Problem Definition</p>
+            <p>Oftentimes, we may receive an email or see a 
+                website that grabs our attention however how 
+                do we know we can trust it. How can we trust 
+                its information? If it’s something that someone 
+                is interested in buying, is it safe to put my 
+                credit card information inside of it? In our 
+                project, we will be using machine learning 
+                techniques to identify phishy websites to 
+                protect ourselves from fraud. </p>
+        </div>
+        <div style="margin: 10px;">
+            <p style="font-size: 20px;">Methods</p>
+            <p>The accurate detection of scam websites will involve 
+                several features such as ____. However, many of these 
+                features will not be significant when detecting scam 
+                websites; the variance covered by some features may 
+                be very small. Principal component analysis (PCA) 
+                will likely be used to remove some features and reduce 
+                the dimensionality of the data. This will simplify 
+                visualization and analysis including clustering. 
+                There are several forms of clustering which can be 
+                utilized to describe the reduced data. Since each 
+                type has its own strengths, it will be hard to determine 
+                which to use without the data. Nevertheless, the 
+                relationship between the features 
+            </p>
+        </div>
+        <div style="margin: 10px;">
+            <p style="font-size: 20px;">Potential Results and Discussion</p>
+            <p>Cybersecurity is a big issue nowadays and we need a way to protect ourselves.</p>
+        </div>
+        <div style="margin: 10px;">
+            <p style="font-size: 20px;">References</p>
+            <p>Cybersecurity is a big issue nowadays and we need a way to protect ourselves.</p>
+        </div>
+        <div style="margin: 10px;">
+            <p style="font-size: 20px;">Proposed Timeline</p>
+            <p>Cybersecurity is a big issue nowadays and we need a way to protect ourselves.</p>
+        </div>
+        <div style="margin: 10px;">
+            <p style="font-size: 20px;">Contribution Table</p>
+            <p>Cybersecurity is a big issue nowadays and we need a way to protect ourselves.</p>
+        </div>
+        <div style="margin: 10px;">
+            <p style="font-size: 20px;">Presentation</p>
+            <p>Cybersecurity is a big issue nowadays and we need a way to protect ourselves.</p>
+        </div>
+        <div style="margin: 10px;">
+            <p style="font-size: 20px;">Video</p>
+            <p>Cybersecurity is a big issue nowadays and we need a way to protect ourselves.</p>
+        </div>
+    </div>
+</body>
+
+<script>
+    function myFunction(clickName) {
+        var x = document.getElementById(clickName);
+        var p = document.getElementById("placeholder");
+        if (x.style.visibility === "visible") {
+            x.style.visibility = "hidden";
+            p.style.display = "block";
+        } else {
+            x.style.visibility = "visible";
+            p.style.display = "none";
+            p.style.alignSelf = "center";
+        }
+    }
+</script>

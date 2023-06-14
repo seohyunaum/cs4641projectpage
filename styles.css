@@ -1,0 +1,81 @@
+@font-face {
+    font-family: raleway;
+    src: url(Poppins-Regular.otf);
+}
+
+a:link, a:visited { 
+    text-decoration: none; 
+    color: black;
+} 
+
+h1 {
+    font-size: 60px;
+    margin: 20px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 20px;
+    margin: 0;
+    text-align: center;
+}
+
+h5 {
+    font-size: 20px;
+    margin: 0;
+    text-align: center;
+}
+
+ul {
+    margin: 5px;
+    list-style-type: square;
+}
+
+
+body {
+    font-family:raleway;
+}
+
+.profilePages {
+    font-size: 20px;
+    transition: 0.7s;
+}
+
+.profilePages:hover {
+    color: orange;
+}
+
+.pages {
+    font-size:20px;
+    transition: 0.7s;
+}
+
+.pages:hover {
+    font-size: 25px;
+    color: orange;
+}
+
+.content {
+    margin: 15px;
+    visibility: hidden;
+    background-color: #DCDCDC;
+    border-radius: 20px;
+}
+
+.center {
+    border: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+    gap: 30px;
+  }
+
+.menu {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    align-content: space-between;
+    gap: 10px;
+}
