@@ -1,0 +1,435 @@
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <link rel = "icon" type = "gif" href = "favicon.png">
+</head>
+
+<div id="midterm_report">
+    <p style="text-align: right; padding: 20px;">
+        <a href = "index.html">Back to Home</a>
+    </p>
+    <div class = "linear-wipe">
+        <p style="font-size: 40px;"><b>Midterm Report</b></p>
+    </div>
+    <div style="margin: 10px; margin-top: 20px;">
+        <p style="font-size: 20px;"><b>Introduction/Background</b></p>
+        <p>In this era of the internet and technology we have seen a wide increase 
+            in fraudulent and phishy websites where the site owner/attacker attempts 
+            to gain sensitive information from the user for his/ her own commercial benefit. 
+            This has attracted the interest of many to apply machine learning modeling to 
+            automatically identify which websites are scams or not based on a particular 
+            website’s characteristics and features. In our project, we will take features 
+            such as a website’s url length, the types of symbols the url contains, and number 
+            of MX servers and apply machine learning techniques to produce whether 
+            a website is fraudulent or not.
+        </p>
+    </div>
+    <div style="margin: 10px;">
+        <p style="font-size: 20px;"><b>Problem Definition</b></p>
+        <p>Oftentimes, we may receive an email or see a website that grabs 
+            our attention. However, how do we know whether we can trust its 
+            information? Because of the rising use of the internet, there has 
+            been an unfortunate increase in fraudulent sites that compel users 
+            to disclose the wrong information as well as have their money stolen. 
+            Even though an average young adult can tell something may or may not 
+            be a scam because some things are “too good to be true”, many fraudulent 
+            websites are starting to look like legitimate sites. This can be 
+            especially problematic for the elderly and younger kids who may not 
+            understand what the normal of the internet is. Consequently, in our 
+            project, we will be using machine learning techniques to identify 
+            suspicious websites to protect ourselves from fraud and its 
+            negative consequences. 
+        </p>
+    </div>
+    <div style="margin: 10px;">
+        <p style="font-size: 20px;"><b>Data Collection</b></p>
+        <p>A research study was conducted on a large number of websites 
+            on the internet which identified whether a website was scam or 
+            legitimate. The study had two variations of datasets: a small 
+            dataset with 58,645 websites and a large dataset of 88,647 websites. 
+            Each dataset has 111 features which can be divided into six 
+            different categories: 
+        </p>
+        <ol>
+            <li>
+                Whole URL - This identifies the number of a specific 
+                attribute inside the whole url of a website. For example, 
+                the number of “.” signs in any url is a feature inside the dataset
+            </li>
+            <li>
+                Domain of URL - This identifies the number of a specific 
+                attribute inside the domain url of a website. For example, 
+                if a website was “goog@e.com\fis@ing\sc@mwebiste”, a value of 
+                1 would be given for the number of “@” signs in the domain 
+                url because there is only 1 “@” in “goog@e.com”
+            </li>
+            <li>
+                URL directory - This identifies the number of a specific 
+                attribute inside the directory url of a website. Taking the 
+                example from point 2, “goog@e.com\fis@ing\sc@mwebiste” would 
+                have a value of 2 for the number of “@” signs in the directory 
+                url because “fis@ing\sc@mwebiste” has 2 “@” signs.
+            </li>
+            <li>
+                URL filename properties - This identifies the number of 
+                a specific attribute inside the filename of a url if it 
+                contains one. For example, if a website was “drive.google.com\drive\CS_4641.php”, 
+                the value of the number of “_” signs in the url filename would be 1 
+                because CS_4641.php has 1 “_” sign.
+            </li>
+            <li>
+                URL parameter properties - This identifies the number of a 
+                specific attribute inside the parameter of a url if it contains 
+                one. For example, if a website was “espn/com\rankings?player=Lebron James&year=2016”, 
+                the value of the number of “&” signs would be 1 because of 
+                “?player=Lebron James&year=2016” having 1 “&” sign. 
+            </li>
+            <li>
+                The URL of resolving data and external metrics - This 
+                identities the features that cannot directly be seen in 
+                a website’s URL. For example, the number of redirects the 
+                websites goes through when clicked is a feature under this category. 
+            </li>
+          </ol>
+          <p>
+            A list of all 111 features with a short description of each of their 
+            descriptions are given in detail in the linked research article. 
+            Taking in all 111 features a boolean Y value (0,1) was given to 
+            identify if a website was a scam site or a legitimate site. For our 
+            data analysis, we used the larger dataset of n =  88,647 and d = 111 
+            because a larger dataset was more appropriate to the actual number 
+            of websites on the internet. 
+          </p>
+    </div>
+    <div style="margin: 10px;">
+        <p style="font-size: 20px;"><b>Methods</b></p>
+        <p>
+            To avoid overfitting and underfitting, we made 80% of our dataset 
+            our training data and 20% our testing dataset and tested our models 
+            separately with them. To reduce the dimensions of our data, we applied 
+            various methods such as Principal Component Analysis (PCA), Tree Based 
+            Feature Selection, and Feature Permutations. After calculating the most 
+            important features in our dataset, we trained our model using the Naive 
+            Bayes Approach and Random Forests. 
+        </p>
+    </div>
+    <div style="margin: 10px;">
+        <p style="font-size: 20px;"><b>Results and Discussion</b></p>
+        <p><b>Pre-Processing</b></p>
+        <p>
+            The accurate detection of scam websites involves several varying features such as 
+            types of characters found in the url and the number of MX servers. However, many of 
+            these features will not be significant when detecting scam websites and many will be 
+            correlated to each other; the additional classification from some features will be 
+            marginal and may cause overfitting when building a model. Nevertheless, we first 
+            attempted to reduce the dimensions by applying Principal Component Analysis. Although, 
+            we were able to conclude that 99% of the model could be predicted by 2 features, 
+            PCA didn’t take into consideration the y labels of our data. PCA simply maximizes the 
+            variance of a given dataset. However, even if the data gets projected onto an axis and 
+            separated, the data might not be separable by class. Therefore, we moved on to a forward 
+            feature selection technique called Tree-Based Feature Selection as a pre-processing step. 
+            Essentially, all the data points are placed at the root of a tree. The tree expands by 
+            splitting the data among different features. Each iteration looks at which feature 
+            decreases the impurity the most (i.e trying to get the data in each node to be homogenous); 
+            impurity is measured through a combination of entropy and the Gini index. Subsequent splits 
+            decrease the impurity further until ideally, every leaf is either fully "spam" or fully 
+            "not spam".  This was the rigorous classification approach we were looking for. We were 
+            able to reduce the dimensions of the dataset. Furthermore the features that were found were 
+            completely different from the PCA approach. Below is a summary table of the results:
+        </p>
+        <table>
+            <tr>
+                <th>Number of Features Reduced To</th>
+                <th>Fractional Importance</th>
+                <th>Important Feature Names</th>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>74.5%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>77.7%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>ASN_IP</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>80.3%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>ASN_IP</li>
+                        <li>Time_Response</li>
+                    </ol>
+                </td>
+            </tr>
+        </table>
+        <p><i>Table 1: Summary of Tree Based Feature Selection</i></p>
+        <p>
+            We considered that impurity-based feature importances may be 
+            misleading for high-cardinality features (features which may 
+            have many unique values). In other words, there is more information 
+            present for features with several different values, thereby ranking 
+            those features as more important than ones with less cardinality. 
+            Our dataset was susceptible to this, as the number of certain characters 
+            within a url may vary tremendously between websites. Therefore we tried 
+            a backward feature selection approach called Feature Permutations. In 
+            feature permutations, a model score with all the features is calculated. 
+            Then a feature is removed, and a new model score is calculated. The difference 
+            between the two values is the importance of that feature to the model. 
+            This is repeated for all the features. 
+        </p>
+        <p>
+            Through this approach, the importance of a feature reflects its 
+            contributions to the entire model, not its intrinsic predictive value. 
+            This approach is more costly in terms of time but it was needed to remove 
+            the bias from our pre-processing. The model score is based on an external 
+            evaluation. We chose to test accuracy, precision, and recall and generate 
+            three different feature permutation models. Below is a summary of our results.
+        </p>
+        <table>
+            <tr>
+                <th>Number of Features Reduced To</th>
+                <th>Measure Focus</th>
+                <th>Fractional Importance</th>
+                <th>Import Feature Names</th>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Accuracy</td>
+                <td>71.01%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Precision</td>
+                <td>64.8%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Recall</td>
+                <td>76.2%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Accuracy</td>
+                <td>77.3%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>Qty_Dot_Domain</li>
+                        <li>Length_ URL</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Precision</td>
+                <td>74.01%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>ASN_IP</li>
+                        <li>Qty_Dot_Domain</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Recall</td>
+                <td>82%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>Qty_Dot_Domain</li>
+                        <li>Length_ URL</li>
+                    </ol>
+                </td>
+            </tr>
+        </table>
+        <p><i>Table 2: Summary of Permutation Feature Selection</i></p>
+        <p>
+            Through all of our tests of feature permutation and impurity-based 
+            feature importance, directory_length" and "time_domain_activation" 
+            are the most important features, so we visualized the model by only 
+            focusing on these two parameters for now. Below is a scatter plot 
+            which shows all the training set data points plotted against these two features.
+        </p>
+        <p style="text-align: center;"><img width = "30%" height="50%" src="mid_pic.jpg"></img></p>
+        <p>
+            Looking at the visual, one cannot draw a rough estimate line 
+            separating a spam website versus a non-spam website; therefore, 
+            more features will be required when building the model. To determine 
+            whether a certain number of features is enough, we need to train the 
+            model and test its accuracy. Since our y label is a boolean value that 
+            can only be 0 and 1, using linear regression would not be a good idea. 
+            Therefore, we tested the model using the Naive Bayes Approach, which is 
+            perfect for a dataset like ours. 
+        </p>
+        <p><b>Training Using Gaussian Naive Bayes Approach</b></p>
+        <p>
+                In this part, we trained our dataset using a Gaussian Naive 
+                Bayes Approach on both the Feature Permutation reduced training 
+                dataset and Tree Based Feature Selection reduced training dataset. 
+                We measured the accuracy of the model by calculating the percentage of 
+                correctly labeled points each model gave out. Below is a summary of the results:
+        </p>
+        <table>
+            <tr>
+                <th>Data Type</th>
+                <th>Method</th>
+                <th>Accuracy</th>
+            </tr>
+            <tr>
+                <td>Training Data</td>
+                <td>Feature Permutation</td>
+                <td>84.0%</td>
+            </tr>
+            <tr>
+                <td>Test Data</td>
+                <td>Feature Permutation</td>
+                <td>84.5%</td>
+            </tr>
+            <tr>
+                <td>Training Data</td>
+                <td>Tree Based Selection</td>
+                <td>82.0%</td>
+            </tr>
+            <tr>
+                <td>Test Data</td>
+                <td>Tree Based Selection</td>
+                <td>53.2%</td>
+            </tr>
+        </table>
+        <p><i>Table 3: Naive Bayes Approach Table</i></p>
+        <p><b>Training Using Random Forests</b></p>
+        <p>
+            Next, we attempted to use random forests to train our data. 
+            These essentially take random data points and then based on 
+            the number of selected data points they grow decision trees 
+            with more sample data points until each "branch" is pure, or 
+            they are leaves. Below is a summary of the results:
+        </p>
+        <table>
+            <tr>
+                <th>Data Type</th>
+                <th>Method</th>
+                <th>Accuracy</th>
+            </tr>
+            <tr>
+                <td>Training Data</td>
+                <td>Feature Permutation</td>
+                <td>97.3%</td>
+            </tr>
+            <tr>
+                <td>Test Data</td>
+                <td>Feature Permutation</td>
+                <td>93.6%</td>
+            </tr>
+            <tr>
+                <td>Training Data</td>
+                <td>Tree Based Selection</td>
+                <td>99.4%</td>
+            </tr>
+            <tr>
+                <td>Test Data</td>
+                <td>Tree Based Selection</td>
+                <td>33.2%</td>
+            </tr>
+        </table>
+        <p><i>Table 4: Random Forests Approach Table</i></p>
+        <p>
+            From the two methods, we were quickly able to see that the tree 
+            based model for feature selection was overfitting the data because 
+            of the high accuracy decrease between the training and test data 
+            for method training methods. Consequently, we decided to move 
+            forward with the Feature Permutation approach for our dimension 
+            reduction. As we move forward with the project, we will focus on 
+            visualizing and polishing the trained model by implementing polynomial/logistic 
+            regression and k-fold cross validation to aid with overfitting/ underfitting. 
+            Additionally, we may modify some of the parameters in the naive gaussian bayes 
+            implementation, or use another form of naive bayes entirely.
+        </p>
+    </div>
+    <div style="margin: 10px;">
+        <p style="font-size: 20px;"><b>Contribution Table</b></p>
+        <table>
+            <tr>
+                <th colspan="2">Midterm Report Contribution</th>
+            </tr>
+            <tr>
+                <td>Dataset final search</td>
+                <td>Hassan</td>
+            </tr>
+            <tr>
+                <td>Transfer Content to Github pages</td>
+                <td>Seo Hyun</td>
+            </tr>
+            <tr>
+                <td>Format editing and data collection</td>
+                <td>Hassan</td>
+            </tr>
+            <tr>
+                <td>Feature Reduction</td>
+                <td>Abdulrahman</td>
+            </tr>
+            <tr>
+                <td>ML Model Research</td>
+                <td>Seo Hyun</td>
+            </tr>
+            <tr>
+                <td>Generate ML Model and Test model accuracy</td>
+                <td>Seo Hyun</td>
+            </tr>
+            <tr>
+                <td>Written Content Modification (Introduction, Methods, Results)</td>
+                <td>Hassan and Abdulrahman</td>
+            </tr>
+            <tr>
+                <td>Methods Results and Discussion</td>
+                <td>Hassan</td>
+            </tr>
+            <tr>
+                <td>Create visualizations</td>
+                <td>Abdulrahman</td>
+            </tr>
+        </table>
+    </div>
+    <div style="margin: 10px; margin-top: 20px;">
+        <p style="font-size: 20px;"><b>Files</b></p>
+        <p><a href="https://colab.research.google.com/drive/1HQak0FWqR18aigXwFxqWnd9_xp5fAd16?usp=sharing">Link to ipynb file</a></p>
+    </div>
+</div>
