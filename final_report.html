@@ -1,0 +1,577 @@
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <link rel = "icon" type = "gif" href = "favicon.png">
+</head>
+
+<div id="midterm_report">
+    <p style="text-align: right; padding: 20px;">
+        <a href = "index.html">Back to Home</a>
+    </p>
+    <div class = "linear-wipe">
+        <p style="font-size: 40px;"><b>Final Report</b></p>
+    </div>
+    <div style="margin: 10px; margin-top: 20px;">
+        <p style="font-size: 20px;"><b>Introduction/Background</b></p>
+        <p>In this era of the internet and technology we have seen a wide increase in fraudulent and phishy websites where the site owner/attacker attempts to gain sensitive information from the user for his/ her own commercial benefit. This has attracted the interest of many to apply machine learning modeling to automatically identify which websites are scams or not based on a particular website’s characteristics and features. In our project, we will take features such as a website’s url length, the types of symbols the url contains, and number of MX servers and apply machine learning techniques to produce whether a website is fraudulent or not.
+        </p>
+    </div>
+    <div style="margin: 10px;">
+        <p style="font-size: 20px;"><b>Problem Definition</b></p>
+        <p>Oftentimes, we may receive an email or see a website that grabs our attention. However, how do we know whether we can trust its information? Because of the rising use of the internet, there has been an unfortunate increase in fraudulent sites that compel users to disclose the wrong information as well as have their money stolen. Even though an average young adult can tell something may or may not be a scam because some things are “too good to be true”, many fraudulent websites are starting to look like legitimate sites. This can be especially problematic for the elderly and younger kids who may not understand what the normal of the internet is. Consequently, in our project, we will be using machine learning techniques to identify suspicious websites to protect ourselves from fraud and its negative consequences. 
+        </p>
+    </div>
+    <div style="margin: 10px;">
+        <p style="font-size: 20px;"><b>Data Collection</b></p>
+        <p>A research study was conducted on a large number of websites on the internet which identified whether a website was scam or legitimate. The study had two variations of datasets: a small dataset with 58,645 websites and a large dataset of 88,647 websites. Each dataset has 111 features which can be divided into six different categories: 
+        </p>
+        <ol>
+            <li>
+                Whole URL - This identifies the number of a specific attribute inside the whole url of a website. For example, the number of “.” signs in any url is a feature inside the dataset.
+            </li>
+            <li>
+                Domain of URL - This identifies the number of a specific attribute inside the domain url of a website. For example, if a website was “goog@e.com\fis@ing\sc@mwebiste”, a value of 1 would be given for the number of “@” signs in the domain url because there is only 1 “@” in “goog@e.com”.
+            </li>
+            <li>
+                URL directory - This identifies the number of a specific attribute inside the directory url of a website. Taking the example from point 2, “goog@e.com\fis@ing\sc@mwebiste” would have a value of 2 for the number of “@” signs in the directory url because “fis@ing\sc@mwebiste” has 2 “@” signs.
+
+            </li>
+            <li>
+                URL filename properties - This identifies the number of a specific attribute inside the filename of a url if it contains one. For example, if a website was “drive.google.com\drive\CS_4641.php”, the value of the number of “_” signs in the url filename would be 1 because CS_4641.php has 1 “_” sign.
+
+            </li>
+            <li>
+                URL parameter properties - This identifies the number of a specific attribute inside the parameter of a url if it contains one. For example, if a website was “espn.com\rankings?player=Lebron James&year=2016”, the value of the number of “&” signs would be 1 because of “?player=Lebron James&year=2016” having 1 “&” sign. 
+            </li>
+            <li>
+                The URL of resolving data and external metrics - This identities the features that cannot directly be seen in a website’s URL. For example, the number of redirects the website goes through when clicked is a feature under this category. 
+            </li>
+          </ol>
+          <p>
+            A list of all 111 features with a short description of each of their descriptions are given in detail in the <a href = "https://www.sciencedirect.com/science/article/pii/S2352340920313202?via%3Dihub">linked research article</a>.
+            Taking in all 111 features a boolean Y value (0,1) was given to identify if a website was a scam site or a legitimate site. For our data analysis, we used the larger dataset of n =  88,647 and d = 111 because a larger dataset was more appropriate to the actual number of websites on the internet. 
+          </p>
+    </div>
+    <div style="margin: 10px;">
+        <p style="font-size: 20px;"><b>Methods</b></p> <!--Methods start here-->
+        <p>
+            To avoid overfitting and underfitting, we made 80% of our dataset our training data and 20% our testing dataset and tested our models separately with them. To reduce the dimensions of our data, we applied various methods such as Principal Component Analysis (PCA), Random Forest Feature Selection, and Feature Permutations. After calculating the most important features in our dataset, we trained our model using gaussian naive bayes, random forests, and logistic regression.
+        </p>
+        <p><b>Feature Selection</b></p>
+        <p>
+            The accurate detection of scam websites involves several varying features such as types of characters found in the url and the number of MX servers. However, many of these features will not be significant when detecting scam websites and many will be correlated to each other; the additional classification from some features will be marginal and may cause overfitting when building a model. Nevertheless, we first attempted to reduce the dimensions by applying Principal Component Analysis. Although, we were able to conclude that 99% of the model could be predicted by 2 features, PCA didn’t take into consideration the y labels of our data. Geometrically, PCA projects it’s dataset onto an axis that will reduce it’s dimensions and these dimensions are called principal components while maximizing the variance of a given dataset. However, even if the data gets projected onto an axis and separated, the data might not be separable by the y labels which increases the likelihood of an inaccurate training model. This phenomenon happens because the labels are not ensured to be correlated with the variance of the features. Consequently, training a model using binary classification and PCA for our dataset would be very difficult.
+        </p>
+        <p>
+            Therefore, we moved on to a forward feature selection technique called Tree-Based Feature Selection (random forests) as a pre-processing step. Essentially, all the data points are placed at the root of a tree. The tree expands by splitting the data among different features. The features at each split are selected randomly. The importance of a feature increases as the decrease in impurity increases (i.e trying to get the data in each node to be homogenous); impurity is measured through the Gini index. Subsequent splits decrease the impurity further until ideally, every leaf is either fully "spam" or fully "not spam".  This was the rigorous classification approach we were looking for. We were able to reduce the dimensions of the dataset. Furthermore the features that were found were completely different from the PCA approach. Below is a summary table of the results:
+        </p>
+        <table class="center">
+            <tr>
+                <th>Number of Features Reduced To</th>
+                <th>Fractional Importance</th>
+                <th>Important Feature Names</th>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>74.5%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>77.7%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>ASN_IP</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>80.3%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>ASN_IP</li>
+                        <li>Time_Response</li>
+                    </ol>
+                </td>
+            </tr>
+        </table>
+        <p style="text-align: center;"><i>Table 1: Summary of Tree Based Feature Selection</i></p>
+        <p>
+            We considered that impurity-based feature importances may be misleading for high-cardinality features (features which may have many unique values). In other words, there is more information present for features with several different values, thereby ranking those features as more important than ones with less cardinality. Our dataset was susceptible to this, as the number of certain characters within a url may vary tremendously between websites. Therefore we tried a backward feature selection approach called Feature Permutations. In feature permutations, a model score with all the features is calculated. Then a feature is removed, and a new model score is calculated. The difference between the two values is the importance of that feature to the model. This is repeated for all the features for each trial, over a total of 100 trials.
+        </p>
+        <p>
+            Through this approach, the importance of a feature reflects its contributions to the entire model, not its intrinsic predictive value. This approach is more costly in terms of time but it was needed to remove the bias from our pre-processing. The model score is based on an external evaluation. We chose to test accuracy, precision, and recall and generate three different feature permutation models. Below is a summary of our results.
+        </p>
+        <table class="center">
+            <tr>
+                <th>Number of Features Reduced To</th>
+                <th>Measure Focus</th>
+                <th>Fractional Importance</th>
+                <th>Import Feature Names</th>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Accuracy</td>
+                <td>64.79%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Precision</td>
+                <td>60.15%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Recall</td>
+                <td>69.45%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Accuracy</td>
+                <td>70.82%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>Qty_Dot_Domain</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Precision</td>
+                <td>66.76%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>ASN_IP</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Recall</td>
+                <td>74.89%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>Qty_Dot_Domain</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Accuracy</td>
+                <td>76.05%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>Qty_Dot_Domain</li>
+                        <li>Length_ URL</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Precision</td>
+                <td>73.12%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>ASN_IP</li>
+                        <li>Qty_Dot_Domain</li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Recall</td>
+                <td>78.94%</td>
+                <td>
+                    <ol>
+                        <li>Directory Length</li>
+                        <li>Time_Domain_Activation</li>
+                        <li>Qty_Dot_Domain</li>
+                        <li>Length_ URL</li>
+                    </ol>
+                </td>
+            </tr>
+        </table>
+        <p style="text-align: center;"><i>Table 2: Summary of Permutation Feature Selection</i></p>
+        <p>
+            Another, more enhanced feature permutation model was developed. Previously, not all the features were considered in every trial. Furthermore, the decision tree made in each trial only stopped when the leaf nodes contained homogeneous data points (there was no minimum number of points parameter). To improve the model and reduce overfitting, the enhanced feature permutation model considered all the features and contained a minimum number of five data points per leaf. Three different scores (accuracy, precision, and recall) were used for evaluation. Luckily, the most important features remained the same, and the enhanced model scores were better. Their results are shown in the table below along with a graph for all seven models (one impurity-based, three feature permutations, and three enhanced feature permutations).
+        </p>
+        <table class="center">
+            <tr>
+                <th>Number of Features</th>
+                <th>Measure Focus</th>
+                <th>Fractional Importance</th>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Accuracy</td>
+                <td>67.36%</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Precision</td>
+                <td>62.49%</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Recall</td>
+                <td>72.54%</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Accuracy</td>
+                <td>73.10%</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Precision</td>
+                <td>68.26%</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Recall</td>
+                <td>78.42%</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Accuracy</td>
+                <td>77.59%</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Precision</td>
+                <td>73.95%</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Recall</td>
+                <td>82.41%</td>
+            </tr>
+        </table>
+        <p style="text-align: center;"><i>Table 3: Feature Number and Fractional Importance at a glance</i></p>
+        <p style="text-align: center;">
+            <img width = "30%" height="50%" src="graphs/graph_1.png"></img>
+        </p>
+        <p style="text-align: center;"><i>Graph 1: Importance Models vs. Number of Features</i></p>
+        <p>
+            Through all of our tests of feature permutation and impurity-based feature importance, directory_length" and "time_domain_activation" are the most important features, so we visualized the model by only focusing on these two parameters for now. Below is a scatter plot which shows all the training set data points plotted against these two features.
+        </p>
+        <p style="text-align: center;">
+            <img width = "30%" height="50%" src="graphs/graph_2.png"></img>
+        </p>
+        <p style="text-align: center;"><i>Graph 2: Training data plotted against two most important features</i></p>
+        <p>
+            Looking at the visual, one cannot draw a rough estimate line separating a spam website versus a non-spam website; therefore, more features will be required when building the model. The graph with all seven models reveals a plateau in the model score beginning around four features. Therefore, we decided to train and test  the model with four features knowing that an increase in the number may be necessary if the test evaluation metrics are not desirable. The four features for the tree-based random forest classifier are directory length, time domain activation, ASN_IP, and time response; the four features for feature permutations are directory length, time domain activation, qty_dot_domain, and length of url. Since our y label is a boolean value that can only be 0 and 1, using linear regression would not be a good idea for our model. Therefore, we tested the model using gaussian naive bayes, random forest, and logistic regression approaches. To evaluate the effectiveness of our prediction models, we calculated accuracy, recall, precision, and f1 scores.
+        </p>
+    </div>
+    <div style="margin: 10px;"> <!--Results and discussion starts here-->
+        <p style="font-size: 20px;"><b>Results and Discussion</b></p>
+        <p>
+            TP = true positive	TN = true negative	FP = false positive	FN = false negative
+        </p>
+        <p>
+            <math>
+                <mrow>
+                    <mo>Accuracy</mo>
+                    <mo> = </mo>
+                    <mfrac>
+                        <mi>TP + TN</mi>
+                        <mi>Total</mi>
+                    </mfrac>
+                </mrow>
+            </math>
+        </p>
+        <p>
+            <math>
+                <mrow>
+                    <mo>Recall</mo>
+                    <mo> = </mo>
+                    <mfrac>
+                        <mi>TP</mi>
+                        <mi>TP + FN</mi>
+                    </mfrac>
+                </mrow>
+            </math>
+        </p>
+        <p>
+            <math>
+                <mrow>
+                    <mo>Precision</mo>
+                    <mo> = </mo>
+                    <mfrac>
+                        <mi>TP</mi>
+                        <mi>TP + FP</mi>
+                    </mfrac>
+                </mrow>
+            </math>
+        </p>
+        <p>
+            <math>
+                <mrow>
+                    <mo>F1</mo>
+                    <mo> = </mo>
+                    <mfrac>
+                        <mi>2 * recall * precision</mi>
+                        <mi>recall + precision</mi>
+                    </mfrac>
+                    <mo> = </mo>
+                    <mfrac>
+                        <mi>TP + TP</mi>
+                        <mi>TP + TN + FP + FN</mi>
+                    </mfrac>
+                </mrow>
+            </math>
+        </p>
+        <p>
+            With scam website detection, it is safer and more acceptable to label a safe website as scam than label a scam website as safe. Therefore, the important external evaluation metric minimizes false negatives and does not consider false positives as much; of course, true positives is also important. A high recall score correlates to low false negative counts and high true positive counts. Unfortunately, it does not consider false positives at all. A model which simply labels all websites as scam will have the highest possible recall of 1. Unlike recall, the f1 metric considers false positives in addition to false negatives and true positives. As a result, f1 is a more comprehensive, desirable measure.
+        </p>
+        <p><b>Training Using Gaussian Naive Bayes Approach</b></p>
+        <p>
+            In this part, we trained our dataset using a Gaussian Naive Bayes Approach on both the Feature Permutation reduced training dataset and Random Forest Feature Selection reduced training dataset. We measured the accuracy, recall, precision, and f1 scores of the model. Below are the results for the training and testing datasets.
+        </p>
+        <table class = "center">
+            <tr>
+                <th>Data Type</th>
+                <th>Method</th>
+                <th>Accuracy</th>
+                <th>Recall</th>
+                <th>Precision</th>
+                <th>F1</th>
+            </tr>
+            <tr>
+                <td>Training Data</td>
+                <td>Feature Permutation</td>
+                <td>84.1%</td>
+                <td>61.93%</td>
+                <td>89.85%</td>
+                <td>73.32%</td>
+            </tr>
+            <tr>
+                <td>Test Data</td>
+                <td>Feature Permutation</td>
+                <td>84.39%</td>
+                <td>61.71%</td>
+                <td>89.90%</td>
+                <td>73.19%</td>
+            </tr>
+            <tr>
+                <td>Training Data</td>
+                <td>Tree Based Selection</td>
+                <td>82.13%</td>
+                <td>59.09%</td>
+                <td>84.58%</td>
+                <td>69.58%</td>
+            </tr>
+            <tr>
+                <td>Test Data</td>
+                <td>Tree Based Selection</td>
+                <td>53.58%</td>
+                <td>94.59%</td>
+                <td>42.29%</td>
+                <td>58.44%</td>
+            </tr>
+        </table>
+        <p style="text-align: center;"><i>Table 4: Naive Bayes Approach Table</i></p>
+        <p style="text-align: center;"><img width = "30%" height="50%" src="graphs/graph_3.png"></img></p>
+        <p style="text-align: center;"><i>Graph 3: External Evaluations for Gaussian Naive Bayes Model</i></p>
+        <p><b>Training Using Random Forests</b></p>
+        <p>
+            Next, we attempted to use random forests to train our data. These essentially take random data points and then based on the number of selected data points they grow decision trees with more sample data points until each "branch" is pure, or they are leaves. Below is a summary of the results:
+        </p>
+        <table class="center">
+            <tr>
+                <th>Data Type</th>
+                <th>Method</th>
+                <th>Accuracy</th>
+                <th>Recall</th>
+                <th>Precision</th>
+                <th>F1</th>
+            </tr>
+            <tr>
+                <td>Training Data</td>
+                <td>Feature Permutation</td>
+                <td>97.22%</td>
+                <td>96.70%</td>
+                <td>95.33%</td>
+                <td>96.01%</td>
+            </tr>
+            <tr>
+                <td>Test Data</td>
+                <td>Feature Permutation</td>
+                <td>94.00%</td>
+                <td>91.83%</td>
+                <td>90.88%</td>
+                <td>91.35%</td>
+            </tr>
+            <tr>
+                <td>Training Data</td>
+                <td>Tree Based Selection</td>
+                <td>99.4%</td>
+                <td>98.79%</td>
+                <td>99.46%</td>
+                <td>99.12%</td>
+            </tr>
+            <tr>
+                <td>Test Data</td>
+                <td>Tree Based Selection</td>
+                <td>32.55%</td>
+                <td>91.18%</td>
+                <td>32.82%</td>
+                <td>48.27%</td>
+            </tr>
+        </table>
+        <p style="text-align: center;"><i>Table 5: Random Forests Approach Table</i></p>
+        <p style="text-align: center;"><img width = "30%" height="50%" src="graphs/graph_4.png"></img></p>
+        <p style="text-align: center;"><i>Graph 4: External Evaluations for Random Forest Classifier Model</i></p>
+        <p><b>Training Using Logistic Regression</b></p>
+        <p>
+            Next, we attempted to use logistic regression to train our data. This method uses the sigmoid function to perform a binary classification. The sigmoid function is a representation of a logit(odds) transformation which is the probability of success divided by the probability of failure. Therefore, the sigmoid’s function range is a value between 0 and 1. So, when the data is inputted, a soft assignment is created of probabilities of which class it belongs to (i.e 0 or 1). If the probability is closer to 1 then the binary classification is 1 or 0 otherwise. Below is a summary of the results:
+        </p>
+        <table class="center">
+            <tr>
+                <th>Data Type</th>
+                <th>Method</th>
+                <th>Accuracy</th>
+                <th>Recall</th>
+                <th>Precision</th>
+                <th>F1</th>
+            </tr>
+            <tr>
+                <td>Training Data</td>
+                <td>Feature Permutation</td>
+                <td>88.96%</td>
+                <td>76.29%</td>
+                <td>90.37%</td>
+                <td>82.73%</td>
+            </tr>
+            <tr>
+                <td>Test Data</td>
+                <td>Feature Permutation</td>
+                <td>88.88%</td>
+                <td>76.33%</td>
+                <td>89.65%</td>
+                <td>82.45%</td>
+            </tr>
+            <tr>
+                <td>Training Data</td>
+                <td>Tree Based Selection</td>
+                <td>88.34%</td>
+                <td>75.45%</td>
+                <td>89.23%</td>
+                <td>81.77%</td>
+            </tr>
+            <tr>
+                <td>Test Data</td>
+                <td>Tree Based Selection</td>
+                <td>88.34%</td>
+                <td>75.45%</td>
+                <td>89.23%</td>
+                <td>81.77%</td>
+            </tr>
+        </table>
+        <p style="text-align: center;"><i>Table 6: Logistic Regression Approach Table</i></p>
+        <p style="text-align: center;"><img width = "30%" height="50%" src="graphs/graph_5.png"></img></p>
+        <p style="text-align: center;"><i>Graph 5: External Evaluations for Logistic Regression Model</i></p>
+    </div>
+    <div style="margin: 10px;">
+        <p style="font-size: 20px;"><b>Conclusion</b></p> <!--Conclusion starts here-->
+        <p>
+            Across the gaussian naive bayes, random forest, and logistic regression models, there is always a large discrepancy between the training and testing external evaluation metrics for random forest feature selected data. This supports the idea of random forest feature selection overfitting the training data due to the high-cardinality present in the features. On the contrary, feature permutations successfully extract important features. Although four external evaluation metrics (accuracy, recall, precision, and f1) are provided for each of the three prediction models (gaussian naive bayes, random forest, and logistic regression), f1 is the most important metric.
+        </p>
+        <p>
+            From the three prediction models, the highest f1 score occurs with feature permutations as the feature selection process and random forests as the prediction model; the f1 score evaluated on the test data is 91.35%. This suggests random forests are very effective models when predicting scam websites. Of course, the features directory length, time domain activation, qty dot domain, and url length are the most important features according to our model. Users who want to avoid scam websites should pay close attention to these characteristics of a website. Although the days of activation of the domain are difficult to obtain, the length of the url and the number of periods in the domain are easy to observe. Websites with large urls should be avoided, especially if they contain several periods. 
+        </p>
+    </div>
+    <div style="margin: 10px;">
+        <p style="font-size: 20px;"><b>Contribution Table</b></p>
+        <table>
+            <tr>
+                <th colspan="2">Midterm Report Contribution</th>
+            </tr>
+            <tr>
+                <td>Create Additional Visualizations</td>
+                <td>Abdulrahman</td>
+            </tr>
+            <tr>
+                <td>Create Evaluation Function with Recall/Precision/F1</td>
+                <td>Seo Hyun</td>
+            </tr>
+            <tr>
+                <td>Implement Logistic Regression Training Portion</td>
+                <td>Hassan</td>
+            </tr>
+            <tr>
+                <td>Complete Slides for Video Report</td>
+                <td>All</td>
+            </tr>
+            <tr>
+                <td>Edit Video</td>
+                <td>Seo Hyun and Abdulrahman</td>
+            </tr>
+            <tr>
+                <td>Update Github Page</td>
+                <td>Seo Hyun</td>
+            </tr>
+            <tr>
+                <td>Update Conclusion</td>
+                <td>Hassan and Abdulrahman</td>
+            </tr>
+        </table>
+    </div>
+    <div style="margin: 10px;">
+        <p style="font-size: 20px;"><b>References</b></p>
+        <p>Abbasi, A., Chen, H. <a href="https://link.springer.com/article/10.1007/s10799-009-0059-0">A comparison of fraud cues and classification methods for fake escrow website detection</a>. 
+            Inf Technol Manag 10, 83–101 (2009). https://doi.org/10.1007/s10799-009-0059-0</p>
+        <p>Abbasi, A., Zhang, Z., Zimbra, D., Chen, H., & Nunamaker, J. F. (2010). <a href="https://www.jstor.org/stable/25750686?seq=4">Detecting Fake Websites: The Contribution of Statistical Learning Theory</a>. MIS Quarterly, 34(3), 435–461. https://doi.org/10.2307/25750686</p>
+        <p>Afanasyeva, O., Shiyan, V., & Goncharova, M. (2021). 
+            <a href="https://www.scitepress.org/Papers/2021/106196/106196.pdf">Cyber Fraud as a Relevant Internet of Things Security Threat</a>. 
+            Proceedings of the International Scientific and Practical Conference on
+             Computer and Information Security - Volume 1: INFSEC, 122–126. 
+             doi:10.5220/0010619600003170</p>
+        <p>Vrbančič, G., Fister, I., & Podgorelec, V. (2020). 
+            <a href="https://www.sciencedirect.com/science/article/pii/S2352340920313202?via%3Dihub">Datasets for phishing websites detection</a>
+            . Data in Brief, 33, 106438. doi:10.1016/j.dib.2020.106438</p>
+    </div>
+    <div style="margin: 10px; margin-top: 20px;">
+        <p style="font-size: 20px;"><b>Files</b></p>
+        <p><a href="https://drive.google.com/file/d/1e_1cKbwWgDW147-jEeDFRBT5f3geG0pT/view?usp=sharing">Link to ipynb file</a></p>
+        <p>To view the ipynb file as a pdf, view: <a href="sc_page.html">Project Source Code Page</a></p>
+        <p><a href="https://docs.google.com/document/d/1DxMpRi_zyrMRrTdSylRWupKZqg7VJEj3FDmf6PsWazA/edit?usp=sharing">Project Final Report</a></p>
+        <p><a href="https://www.youtube.com/watch?v=FJa43YVMnx8&feature=youtu.be">Video Report</a></p>
+    </div>
+</div>
